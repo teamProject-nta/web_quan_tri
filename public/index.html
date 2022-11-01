@@ -55,6 +55,66 @@
   </nav>
   <script src="app.js"></script>
 
+  
+
+  <br>
+  <br>
+  <br>
+
+  <div class= "container"     >  
+    <table>  
+    <caption>  CÁC SẢN PHẨM HOA</caption>  
+    <thead>  
+        <tr>  
+            <th>  <input type= "checkbox" id= "chonhet"  onchange="chontatca()" >  </th>  
+            <th>  Tên sản phẩm hoa</th>  
+            <th>  Giá</th>  
+            <th>  Mua</th>  
+        </tr>    
+    </thead>  
+    <tbody>  
+        <tr>  
+            <td>  <input type= "checkbox"      class= "chon"      checked onchange="daott(this)">  </td>  
+            <td>  Hạnh phúc trọn vẹn</td>  
+            <td>  900000</td>  
+            <td>  <button onclick="them(this)" onchange="daott(this)">  Chọn</button>  </td>  
+        </tr>  
+        <tr>  
+            <td>  <input type= "checkbox"      class= "chon"      checked onchange="daott(this)">  </td>  
+            <td>  Con Đường Thành Công</td>  
+            <td>  1750000</td>  
+            <td>  <button onclick="them(this)" onchange="daott(this)">  Chọn</button>  </td>  
+
+
+
+        </tr>  
+        <tr>  
+            <td>  <input type= "checkbox"      class= "chon"      checked onchange="daott(this)">  </td>  
+            <td>  Phú Quý</td>  
+            <td>  1300000</td>  
+            <td>  <button onclick="them(this)" onchange="daott(this)">  Chọn</button>  </td>  
+        </tr>  
+        <tr>  
+            <td>  <input type= "checkbox"      class= "chon"      checked onchange="daott(this)">  </td>   
+            <td>  Vững Bước</td>  
+            <td>  1150000</td>  
+            <td>  <button onclick="them(this)" onchange="daott(this)">  Chọn</button>  </td>  
+        </tr>  
+        <tr>  
+            <td>  <input type= "checkbox"      class= "chon"      checked onchange="daott(this)">  </td>   
+            <td>  Một Cõi Đi Về</td>  
+            <td>  950000</td>  
+            <td>  <button onclick="them(this)" onchange="daott(this)">  Chọn</button>  </td>  
+        </tr>  
+    </tbody>  
+    </table>  
+    <hr style= "margin:20px 0"/>   
+    <table id= "cart"> <caption>GIỎ HÀNG CỦA BẠN</caption> </table> 
+    <h3 id="tien">Tổng Số Tiền:<span id="tong">0</span></h3>
+
+</div>  
+  
+
 
     <script>
       document.addEventListener('DOMContentLoaded', function() {
@@ -95,4 +155,67 @@
       });
     </script>
   </body>
+  
 </html>
+<script>
+  function them(button){
+      var row = button.parentElement.parentElement.cloneNode(true);
+      var btnXoa = row.getElementsByTagName("button")[0];
+      btnXoa.innerText ="Xoá";
+      btnXoa.setAttribute('onclick','xoa(this)');
+      document.getElementById('cart').appendChild(row);
+      document.getElementById("cart").style.display="";
+      document.getElementById("tien").style.display="";
+      tinhtong();
+  // document.getElementById("cart").style.display="";
+  // document.getElementById("tien").style.display="";
+
+  }
+  function xoa(button){
+      var row = button.parentElement.parentElement;
+      document.getElementById("cart").removeChild(row);
+      tinhtong();
+
+  }
+  function tinhtong(){
+      var cart = document.getElementById("cart");
+      var rows = cart.getElementsByTagName("tr");
+      var tong = 0;
+      for(var i= 0;i<rows.length;i++){
+          var price = rows[i].children[2].innerText;
+          price = parseInt(price);
+          tong += price;
+      }
+      document.getElementById("tong").innerText=tong;
+  }
+</script>
+<script>
+  document.getElementById("cart").style.display="none";
+  document.getElementById("tien").style.display="none";
+
+</script>
+<script>
+  function daott(obj){
+      var row = obj.parentElement.parentElement;
+      var btn = row.getElementsByTagName("button")[0];
+      btn.disabled =! btn.disabled;
+  }
+</script>
+<script>
+  function chontatca(){
+      var chonhet =document.getElementById("chonhet");
+      var khoa = document.getElementsByTagName("button");
+      if(chonhet.checked==true){
+          for (let index =0; index <5;index++){
+              document.getElementsByClassName("chon")[index].checked=true;
+              khoa[index].disabled=false;
+          }
+      }else{
+          for(let index =0; index <5;index++){
+          document.getElementsByClassName("chon")[index].checked=false;
+              khoa[index].disabled=true;
+      }
+  }
+      
+  }
+</script>
