@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Quản trị hàng trên app</title>
-
+<link rel="stylesheet" href="menu.css">
     <!-- update the version number as needed -->
     <script defer src="/__/firebase/9.13.0/firebase-app-compat.js"></script>
     <!-- include only the Firebase features as you need -->
@@ -17,6 +17,8 @@
     <script defer src="/__/firebase/9.13.0/firebase-analytics-compat.js"></script>
     <script defer src="/__/firebase/9.13.0/firebase-remote-config-compat.js"></script>
     <script defer src="/__/firebase/9.13.0/firebase-performance-compat.js"></script>
+    
+
     <!-- 
       initialize the SDK after all desired features are loaded, set useEmulator to false
       to avoid connecting the SDK to running emulators.
@@ -33,14 +35,25 @@
     </style>
   </head>
   <body>
-    <div id="message">
-      Hello các chế cứ code lên đây nha
-
-
-      <input type="text" name="" id="" placeholder="Nhập tên sản phẩm">
-      <button>Submit</button>
-
-    </div>
+    <nav class="menu">
+      <div class="logotruyentranh">
+          <h4><a href="trangchu.html" style="text-decoration: none ;color: white; ">Market Manager</a></h4>
+      </div>
+      <ul class="nav-links">
+          <li><a href="trangchu.html">Thể Loại</a></li>
+          <li><a href="theloai.html">Sản phẩm</a></li>
+          <li><a href="xephang.html">Mã Giảm giá</a></li>
+        
+       
+      </ul>
+      <div class="lineline">
+          <div class="line1"></div>
+          <div class="line2"></div>
+          <div class="line3"></div>
+      </div>
+      
+  </nav>
+  <script src="app.js"></script>
 
 
     <script>
