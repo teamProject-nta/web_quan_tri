@@ -12,7 +12,7 @@ function validate() {
             close: true,
             button: false,
           });
-        window.location = "/public/doc/index.html";
+        window.location = "../afterlogin/index.html";
         return true;
        
     }
