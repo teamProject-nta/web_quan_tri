@@ -1,10 +1,25 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
+<html lang="vi">
+
+<head>
+    <title>Đăng nhập quản trị | Website quản trị v2.0</title>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Quản trị hàng trên app</title>
-<link rel="stylesheet" href="menu.css">
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+    <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="css/util.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+
     <!-- update the version number as needed -->
     <script defer src="/__/firebase/9.13.0/firebase-app-compat.js"></script>
     <!-- include only the Firebase features as you need -->
@@ -17,205 +32,136 @@
     <script defer src="/__/firebase/9.13.0/firebase-analytics-compat.js"></script>
     <script defer src="/__/firebase/9.13.0/firebase-remote-config-compat.js"></script>
     <script defer src="/__/firebase/9.13.0/firebase-performance-compat.js"></script>
-    
+
 
     <!-- 
       initialize the SDK after all desired features are loaded, set useEmulator to false
       to avoid connecting the SDK to running emulators.
     -->
     <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+</head>
 
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-    
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
-      }
-    </style>
-  </head>
-  <body>
-    <nav class="menu">
-      <div class="logotruyentranh">
-          <h4><a href="trangchu.html" style="text-decoration: none ;color: white; ">Market Manager</a></h4>
-      </div>
-      <ul class="nav-links">
-          <li><a href="trangchu.html">Thể Loại</a></li>
-          <li><a href="theloai.html">Sản phẩm</a></li>
-          <li><a href="xephang.html">Mã Giảm giá</a></li>
-        
-       
-      </ul>
-      <div class="lineline">
-          <div class="line1"></div>
-          <div class="line2"></div>
-          <div class="line3"></div>
-      </div>
-      
-  </nav>
-  <script src="app.js"></script>
+<body>
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <div class="login100-pic js-tilt" data-tilt>
+                    <img src="images/team.jpg" alt="IMG">
+                </div>
+                <!--=====TIÊU ĐỀ======-->
+                <form class="login100-form validate-form">
+                    <span class="login100-form-title">
+                        <b>ĐĂNG NHẬP HỆ THỐNG POS</b>
+                    </span>
+                    <!--=====FORM INPUT TÀI KHOẢN VÀ PASSWORD======-->
+                    <form action="">
+                        <div class="wrap-input100 validate-input">
+                            <input class="input100" type="text" placeholder="Tài khoản quản trị" name="username"
+                                id="username">
+                            <span class="focus-input100"></span>
+                            <span class="symbol-input100">
+                                <i class='bx bx-user'></i>
+                            </span>
+                        </div>
+                        <div class="wrap-input100 validate-input">
+                            <input autocomplete="off" class="input100" type="password" placeholder="Mật khẩu"
+                                name="current-password" id="password-field">
+                            <span toggle="#password-field" class="bx fa-fw bx-hide field-icon click-eye"></span>
+                            <span class="focus-input100"></span>
+                            <span class="symbol-input100">
+                                <i class='bx bx-key'></i>
+                            </span>
+                        </div>
 
-  
-
-  <br>
-  <br>
-  <br>
-
-  <div class= "container"     >  
-    <table>  
-    <caption>  CÁC SẢN PHẨM HOA</caption>  
-    <thead>  
-        <tr>  
-            <th>  <input type= "checkbox" id= "chonhet"  onchange="chontatca()" >  </th>  
-            <th>  Tên sản phẩm hoa</th>  
-            <th>  Giá</th>  
-            <th>  Mua</th>  
-        </tr>    
-    </thead>  
-    <tbody>  
-        <tr>  
-            <td>  <input type= "checkbox"      class= "chon"      checked onchange="daott(this)">  </td>  
-            <td>  Hạnh phúc trọn vẹn</td>  
-            <td>  900000</td>  
-            <td>  <button onclick="them(this)" onchange="daott(this)">  Chọn</button>  </td>  
-        </tr>  
-        <tr>  
-            <td>  <input type= "checkbox"      class= "chon"      checked onchange="daott(this)">  </td>  
-            <td>  Con Đường Thành Công</td>  
-            <td>  1750000</td>  
-            <td>  <button onclick="them(this)" onchange="daott(this)">  Chọn</button>  </td>  
-
-
-
-        </tr>  
-        <tr>  
-            <td>  <input type= "checkbox"      class= "chon"      checked onchange="daott(this)">  </td>  
-            <td>  Phú Quý</td>  
-            <td>  1300000</td>  
-            <td>  <button onclick="them(this)" onchange="daott(this)">  Chọn</button>  </td>  
-        </tr>  
-        <tr>  
-            <td>  <input type= "checkbox"      class= "chon"      checked onchange="daott(this)">  </td>   
-            <td>  Vững Bước</td>  
-            <td>  1150000</td>  
-            <td>  <button onclick="them(this)" onchange="daott(this)">  Chọn</button>  </td>  
-        </tr>  
-        <tr>  
-            <td>  <input type= "checkbox"      class= "chon"      checked onchange="daott(this)">  </td>   
-            <td>  Một Cõi Đi Về</td>  
-            <td>  950000</td>  
-            <td>  <button onclick="them(this)" onchange="daott(this)">  Chọn</button>  </td>  
-        </tr>  
-    </tbody>  
-    </table>  
-    <hr style= "margin:20px 0"/>   
-    <table id= "cart"> <caption>GIỎ HÀNG CỦA BẠN</caption> </table> 
-    <h3 id="tien">Tổng Số Tiền:<span id="tong">0</span></h3>
-
-</div>  
-  
-
-
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const loadEl = document.querySelector('#load');
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.firestore().doc('/foo/bar').get().then(() => { });
-        // firebase.functions().httpsCallable('yourFunction')().then(() => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        // firebase.analytics(); // call to activate
-        // firebase.analytics().logEvent('tutorial_completed');
-        // firebase.performance(); // call to activate
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-
-        try {
-          let app = firebase.app();
-          let features = [
-            'auth', 
-            'database', 
-            'firestore',
-            'functions',
-            'messaging', 
-            'storage', 
-            'analytics', 
-            'remoteConfig',
-            'performance',
-          ].filter(feature => typeof app[feature] === 'function');
-          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
+                        <!--=====ĐĂNG NHẬP======-->
+                        <div class="container-login100-form-btn">
+                            <input type="button" value="Đăng nhập" id="submit" onclick="validate()" />
+                        </div>
+                        <!--=====LINK TÌM MẬT KHẨU======-->
+                        <div class="text-right p-t-12">
+                            <a class="txt2" href="/forgot.html">
+                                Bạn quên mật khẩu?
+                            </a>
+                        </div>
+                    </form>
+                    <!--=====FOOTER======-->
+                    <div class="text-center p-t-70 txt2">
+                        Phần mềm quản lý bán hàng <i class="far fa-copyright" aria-hidden="true"></i>
+                        <script type="text/javascript">document.write(new Date().getFullYear());</script> <a
+                            class="txt2" href="https://www.facebook.com/truongvo.vd1503/"> Code bởi Trường </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--Javascript-->
+    <script src="/js/main.js"></script>
+    <script src="https://unpkg.com/boxicons@latest/dist/boxicons.js"></script>
+    <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+    <script src="vendor/bootstrap/js/popper.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="vendor/select2/select2.min.js"></script>
+    <script type="text/javascript">
+        //show - hide mật khẩu
+        function myFunction() {
+            var x = document.getElementById("myInput");
+            if (x.type === "password") {
+                x.type = "text"
+            } else {
+                x.type = "password";
+            }
         }
-      });
+        $(".click-eye").click(function () {
+            $(this).toggleClass("bx-show bx-hide");
+            var input = $($(this).attr("toggle"));
+            if (input.attr("type") == "password") {
+                input.attr("type", "text");
+            } else {
+                input.attr("type", "password");
+            }
+        });
     </script>
-  </body>
-  
+
+
+    <!-- firebase -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const loadEl = document.querySelector('#load');
+            // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+            // // The Firebase SDK is initialized and available here!
+            //
+            // firebase.auth().onAuthStateChanged(user => { });
+            // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
+            // firebase.firestore().doc('/foo/bar').get().then(() => { });
+            // firebase.functions().httpsCallable('yourFunction')().then(() => { });
+            // firebase.messaging().requestPermission().then(() => { });
+            // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
+            // firebase.analytics(); // call to activate
+            // firebase.analytics().logEvent('tutorial_completed');
+            // firebase.performance(); // call to activate
+            //
+            // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+
+            try {
+                let app = firebase.app();
+                let features = [
+                    'auth',
+                    'database',
+                    'firestore',
+                    'functions',
+                    'messaging',
+                    'storage',
+                    'analytics',
+                    'remoteConfig',
+                    'performance',
+                ].filter(feature => typeof app[feature] === 'function');
+                loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
+            } catch (e) {
+                console.error(e);
+                loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
+            }
+        });
+    </script>
+</body>
+
 </html>
-<script>
-  function them(button){
-      var row = button.parentElement.parentElement.cloneNode(true);
-      var btnXoa = row.getElementsByTagName("button")[0];
-      btnXoa.innerText ="Xoá";
-      btnXoa.setAttribute('onclick','xoa(this)');
-      document.getElementById('cart').appendChild(row);
-      document.getElementById("cart").style.display="";
-      document.getElementById("tien").style.display="";
-      tinhtong();
-  // document.getElementById("cart").style.display="";
-  // document.getElementById("tien").style.display="";
-
-  }
-  function xoa(button){
-      var row = button.parentElement.parentElement;
-      document.getElementById("cart").removeChild(row);
-      tinhtong();
-
-  }
-  function tinhtong(){
-      var cart = document.getElementById("cart");
-      var rows = cart.getElementsByTagName("tr");
-      var tong = 0;
-      for(var i= 0;i<rows.length;i++){
-          var price = rows[i].children[2].innerText;
-          price = parseInt(price);
-          tong += price;
-      }
-      document.getElementById("tong").innerText=tong;
-  }
-</script>
-<script>
-  document.getElementById("cart").style.display="none";
-  document.getElementById("tien").style.display="none";
-
-</script>
-<script>
-  function daott(obj){
-      var row = obj.parentElement.parentElement;
-      var btn = row.getElementsByTagName("button")[0];
-      btn.disabled =! btn.disabled;
-  }
-</script>
-<script>
-  function chontatca(){
-      var chonhet =document.getElementById("chonhet");
-      var khoa = document.getElementsByTagName("button");
-      if(chonhet.checked==true){
-          for (let index =0; index <5;index++){
-              document.getElementsByClassName("chon")[index].checked=true;
-              khoa[index].disabled=false;
-          }
-      }else{
-          for(let index =0; index <5;index++){
-          document.getElementsByClassName("chon")[index].checked=false;
-              khoa[index].disabled=true;
-      }
-  }
-      
-  }
-</script>

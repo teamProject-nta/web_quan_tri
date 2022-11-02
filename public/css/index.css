@@ -1,0 +1,17 @@
+table {
+    border-collapse: collapse;
+    margin: 0 auto;
+    border-radius: 10px;
+}
+tr,td, th {
+    border: 1px solid black;
+}
+tr th {
+    padding: 10px;
+}
+tr td {
+    padding: 10px;
+}
+tr td:last-child {
+    text-align: center;
+}
