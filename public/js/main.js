@@ -4,7 +4,7 @@ function validate() {
     var username = document.getElementById("username").value;
     var password = document.getElementById("password-field").value;
     //Đặt 1 Admin ảo để đăng nhập quản trị
-    if (username == "admin" && password == "123456") {
+    if (username == "admin" && password == "teamcode@2003") {
         swal({
             title: "",
             text: "Xin chào Team 5",
@@ -12,7 +12,7 @@ function validate() {
             close: true,
             button: false,
           });
-        window.location = "doc/index.html";
+        window.location = "/public/doc/index.html";
         return true;
        
     }
