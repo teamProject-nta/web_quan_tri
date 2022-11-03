@@ -35,25 +35,26 @@
 //   console.error(error);
 // });
 
-import firebase from "/firebase.json";
-// Required for side-effects
-// import "/firebase.json/firestore";
+// with ES Modules (if using client-side JS, like React)
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+
 
 // TODO: Replace the following with your app's Firebase project configuration
 // See: https://firebase.google.com/docs/web/learn-more#config-object
 const firebaseConfig = {
     apiKey: "AIzaSyBhECFBJadJ4yFQF4KxbVfA7a6mrWsM_jo",
     authDomain: "appsale-ba3f9.firebaseapp.com",
+    databaseURL: "https://appsale-ba3f9.firebaseio.com",
     projectId: "appsale-ba3f9",
     storageBucket: "appsale-ba3f9.appspot.com",
     messagingSenderId: "757083996678",
     appId: "1:757083996678:web:258b05b355945f9d207987",
-    measurementId: "G-85H2Z7X2MT"
   };
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-
+import firebase from "/firebase.json";
 
 // Initialize Cloud Firestore and get a reference to the service
 const db = firebase.firestore();
