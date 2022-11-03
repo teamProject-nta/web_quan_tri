@@ -26,6 +26,7 @@
   <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-database.js"></script>
 
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
   <!-- TODO: Add SDKs for Firebase products that you want to use
        https://firebase.google.com/docs/web/setup#available-libraries -->
@@ -583,36 +584,7 @@ MODAL
     });
   </script>
 
-
-  <script type="module">
-    // Import the functions you need from the SDKs you need
-    // TODO: Add SDKs for Firebase products that you want to use
-    // https://firebase.google.com/docs/web/setup#available-libraries
-
-    // Your web app's Firebase configuration
-    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-    const firebaseConfig = {
-      apiKey: "AIzaSyBhECFBJadJ4yFQF4KxbVfA7a6mrWsM_jo",
-      authDomain: "appsale-ba3f9.firebaseapp.com",
-      databaseURL: "https://appsale-ba3f9-default-rtdb.europe-west1.firebasedatabase.app",
-      projectId: "appsale-ba3f9",
-      storageBucket: "appsale-ba3f9.appspot.com",
-      messagingSenderId: "757083996678",
-      appId: "1:757083996678:web:258b05b355945f9d207987",
-      measurementId: "G-85H2Z7X2MT"
-    };
-
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    firebase.analytics();
-
-    var text = document.getElementById('titlelum');
-    var noidung = firebase.database().ref().child('mes').child('title');
-    noidung.on('value', snap => text.innerHTML = snap.val());
-
-  </script>
-
-  <script type="module" src="../afterlogin/js/getdata.js"></script>
+  <script src="js/firebase.js"></script>
 
 </body>
 
