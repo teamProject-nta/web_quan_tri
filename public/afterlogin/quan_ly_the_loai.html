@@ -132,7 +132,7 @@
 
             </div>
 
-            <table class="table table-hover table-bordered">
+            <table class="table table-hover table-bordered" id="table_category">
               <thead>
                 <tr>
                   <th width="10"><input type="checkbox" id="all"></th>
@@ -180,7 +180,7 @@
            max-width: 100%;
         ">
               <label class="control-label">Tên thể loại</label>
-              <input id="theloaimoi" class="form-control" type="text" required value="">
+              <input id="nhaptheloai" class="form-control" type="text" required value="">
             </div>
 
 
@@ -188,8 +188,16 @@
 
             <BR>
             <BR>
-            <button style="margin-left:20px ;margin-right: 10px;" class="btn btn-save" onclick="updateCategory()"
-              type="button">Lưu lại</button>
+            <script>
+              function layData() {
+                var theloaimoi = document.getElementById('nhaptheloai').value;
+                console.log(theloaimoi);
+                return theloaimoi;
+              }
+
+            </script>
+            <button style="margin-left:20px ;margin-right: 10px;" class="btn btn-save"
+              onclick="updateCategory_2()" type="button">Lưu lại</button>
             <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
             <BR>
           </div>
@@ -198,95 +206,96 @@
         </div>
       </div>
     </div>
-
-    <!--
+  </div>
+  <!--
 MODAL
 -->
 
-    <!-- Essential javascripts for application to work-->
-    <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="src/jquery.table2excel.js"></script>
-    <script src="js/main.js"></script>
-    <!-- The javascript plugin to display page loading on top-->
-    <script src="js/plugins/pace.min.js"></script>
-    <!-- Page specific javascripts-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
-    <!-- Data table plugin-->
-    <script type="text/javascript" src="js/plugins/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="js/plugins/dataTables.bootstrap.min.js"></script>
-    <script type="text/javascript">
-      $('#sampleTable').DataTable();
-      //Thời Gian
-      function time() {
-        var today = new Date();
-        var weekday = new Array(7);
-        weekday[0] = "Chủ Nhật";
-        weekday[1] = "Thứ Hai";
-        weekday[2] = "Thứ Ba";
-        weekday[3] = "Thứ Tư";
-        weekday[4] = "Thứ Năm";
-        weekday[5] = "Thứ Sáu";
-        weekday[6] = "Thứ Bảy";
-        var day = weekday[today.getDay()];
-        var dd = today.getDate();
-        var mm = today.getMonth() + 1;
-        var yyyy = today.getFullYear();
-        var h = today.getHours();
-        var m = today.getMinutes();
-        var s = today.getSeconds();
-        m = checkTime(m);
-        s = checkTime(s);
-        nowTime = h + " giờ " + m + " phút " + s + " giây";
-        if (dd < 10) {
-          dd = '0' + dd
-        }
-        if (mm < 10) {
-          mm = '0' + mm
-        }
-        today = day + ', ' + dd + '/' + mm + '/' + yyyy;
-        tmp = '<span class="date"> ' + today + ' - ' + nowTime +
-          '</span>';
-        document.getElementById("clock").innerHTML = tmp;
-        clocktime = setTimeout("time()", "1000", "Javascript");
-
-        function checkTime(i) {
-          if (i < 10) {
-            i = "0" + i;
-          }
-          return i;
-        }
+  <!-- Essential javascripts for application to work-->
+  <script src="js/jquery-3.2.1.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <!-- <script src="src/jquery.table2excel.js"></script> -->
+  <script src="js/main.js"></script>
+  <!-- The javascript plugin to display page loading on top-->
+  <script src="js/plugins/pace.min.js"></script>
+  <!-- Page specific javascripts-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+  <!-- Data table plugin-->
+  <script type="text/javascript" src="js/plugins/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" src="js/plugins/dataTables.bootstrap.min.js"></script>
+  <script type="text/javascript">
+    $('#sampleTable').DataTable();
+    //Thời Gian
+    function time() {
+      var today = new Date();
+      var weekday = new Array(7);
+      weekday[0] = "Chủ Nhật";
+      weekday[1] = "Thứ Hai";
+      weekday[2] = "Thứ Ba";
+      weekday[3] = "Thứ Tư";
+      weekday[4] = "Thứ Năm";
+      weekday[5] = "Thứ Sáu";
+      weekday[6] = "Thứ Bảy";
+      var day = weekday[today.getDay()];
+      var dd = today.getDate();
+      var mm = today.getMonth() + 1;
+      var yyyy = today.getFullYear();
+      var h = today.getHours();
+      var m = today.getMinutes();
+      var s = today.getSeconds();
+      m = checkTime(m);
+      s = checkTime(s);
+      nowTime = h + " giờ " + m + " phút " + s + " giây";
+      if (dd < 10) {
+        dd = '0' + dd
       }
-    </script>
-    <!-- <script>
-      function deleteRow(r) {
-        var i = r.parentNode.parentNode.rowIndex;
-        document.getElementById("myTable").deleteRow(i);
+      if (mm < 10) {
+        mm = '0' + mm
       }
-      jQuery(function () {
-        jQuery(".trash").click(function () {
-          swal({
-            title: "Cảnh báo",
-            text: "Bạn có chắc chắn là muốn xóa thể loại này?",
-            buttons: ["Hủy bỏ", "Đồng ý"],
-          })
-            .then((willDelete) => {
-              if (willDelete) {
-                swal("Đã xóa thành công.!", {
+      today = day + ', ' + dd + '/' + mm + '/' + yyyy;
+      tmp = '<span class="date"> ' + today + ' - ' + nowTime +
+        '</span>';
+      document.getElementById("clock").innerHTML = tmp;
+      clocktime = setTimeout("time()", "1000", "Javascript");
 
-                });
-              }
-            });
-        });
+      function checkTime(i) {
+        if (i < 10) {
+          i = "0" + i;
+        }
+        return i;
+      }
+    }
+  </script>
+  <script>
+    function deleteRow(r) {
+      var i = r.parentNode.parentNode.rowIndex;
+      document.getElementById("myTable").deleteRow(i);
+    }
+    jQuery(function () {
+      jQuery(".trash").click(function () {
+        swal({
+          title: "Cảnh báo",
+          text: "Bạn có chắc chắn là muốn xóa thể loại này?",
+          buttons: ["Hủy bỏ", "Đồng ý"],
+        })
+          .then((willDelete) => {
+            if (willDelete) {
+              deleteCategory(i);
+              swal("Đã xóa thành công.!", {
+
+              });
+            }
+          });
       });
-      oTable = $('#sampleTable').dataTable();
-      $('#all').click(function (e) {
-        $('#sampleTable tbody :checkbox').prop('checked', $(this).is(':checked'));
-        e.stopImmediatePropagation();
-      });
-    </script> -->
+    });
+    oTable = $('#sampleTable').dataTable();
+    $('#all').click(function (e) {
+      $('#sampleTable tbody :checkbox').prop('checked', $(this).is(':checked'));
+      e.stopImmediatePropagation();
+    });
+  </script>
 
 
 </body>
@@ -323,44 +332,109 @@ MODAL
 <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
 <script src="js/firebase.js"></script>
 
+<script type="module">
+  const firebaseConfig = {
+    apiKey: "AIzaSyBhECFBJadJ4yFQF4KxbVfA7a6mrWsM_jo",
+    authDomain: "appsale-ba3f9.firebaseapp.com",
+    databaseURL: "https://appsale-ba3f9-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "appsale-ba3f9",
+    storageBucket: "appsale-ba3f9.appspot.com",
+    messagingSenderId: "757083996678",
+    appId: "1:757083996678:web:258b05b355945f9d207987",
+    measurementId: "G-85H2Z7X2MT"
+  };
+
+  // Initialize Firebase
+  const app = firebase.initializeApp(firebaseConfig);
+  const firestore = firebase.firestore();
+</script>
+
 <script>
+
   getDataCategory();
   function getDataCategory() {
+    document.getElementById('tentheloai').innerHTML = '';
+    var i = 0;
     var theloai = firestore.collection("category");
     var selection = document.getElementById('tentheloai');
     theloai.get().then((snapshot) => {
       snapshot.forEach(sel => {
-        console.log(sel.data());
+
         var option = `<tr>
                   <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                  <td id="idcategory"> ${sel.id} </td>
+                  <td class="idcategory"> ${sel.id} </td>
                   <td>${sel.data().namecategory}</td>
               
                   <td ><button  class="btn btn-primary btn-sm trash" type="button"  title="Xóa"
-                      onclick="deleteCategory()"><i class="fas fa-trash-alt"></i>
+                      onclick="deleteCategory(${i})"><i class="fas fa-trash-alt"></i>
                     </button>
-                    <button class="btn btn-primary btn-sm edit" type="button" title="Sửa"   id="show-emp"
-                      data-toggle="modal" data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+                    <button class="btn btn-primary btn-sm edit" type="button" title="Sửa"  
+                     id="show-emp"
+                      data-toggle="modal" data-target="#ModalUP" onclick="updateCategory(${i})" ><i class="fas fa-edit"></i></button>
 
                   </td>
                </tr>`;
 
         selection.innerHTML += option;
+        i++;
       });
+
     })
   }
 
-
-
-  async function updateCategory() {
-    var theloaimoi = document.getElementById('theloaimoi').value;
-    var xoatheloai = document.getElementById('idcategory').value;
-    await firebase.firestore().collection("category").doc(xoatheloai).update({ namecategory: theloaimoi });
+  function updateCategory(i) {
+    localStorage.setItem('i', i);
   }
-  async function deleteCategory() {
-    var xoatheloai = document.getElementById('idcategory').value;
-    await firebase.firestore().collection("category").doc(xoatheloai).delete();
-    console.log(xoatheloai);
+
+  async function updateCategory_2() {
+    var i = localStorage.getItem('i');
+    const id = document.getElementsByClassName('idcategory')[i].innerText;
+    var dataCategory = layData();
+    console.log(dataCategory);
+    console.log(id);
+    firebase.firestore().collection("category").doc(id + "").update({ namecategory:  dataCategory});
+    
+    var setData = setInterval(function () {
+      getDataCategory();
+      window.location = "";
+    }, 1000);
+
+    setTimeout(function () {
+      clearInterval(setData);
+    }, 1000)
+  }
+
+
+  // async function updateCategory(i) {
+  //   var theloaimoi = document.getElementsByClassName('idcategory')[i].innerText;
+  //   firebase.firestore().collection("category").doc(xoatheloai + "").update({ namecategory: theloaimoi });
+  //   setTimeout(function () {
+  //     clearInterval(setData);
+  //   }, 1000)
+
+  //   console.log("Thành Công");
+  // }
+  async function deleteCategory(i) {
+    var xoatheloai = document.getElementsByClassName('idcategory')[i].innerText;
+    firebase.firestore().collection("category").doc(xoatheloai + "").delete();
+    console.log(i);
+    // var xoahang = document.getElementsByClassName('idcategory');
+    // var index = 0;
+    // for (let index = 0; index < xoahang.length - 1; index++) {
+    //   if(xoahang[index].innerText == xoatheloai) {
+    //     document.getElementById('table_category').deleteRow(index);
+    //     console.log(index);
+    //     break;
+    //   }
+    var setData = setInterval(function () {
+      getDataCategory();
+    }, 1000);
+
+    setTimeout(function () {
+      clearInterval(setData);
+    }, 1000)
+
+    console.log("Thành Công");
   }
 
 
