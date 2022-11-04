@@ -1,12 +1,20 @@
-var storea = firestore.collection("store");
+
+var storea = firestore.collection("category");
 
 
-async function addStore() {
-    await firestore.collection("store").add({
-        name: "Nguyễn Tuấn Anh",
-        email: "anh@gmail.com"
+async function addCategory() {
 
+    var categoryname1 = document.getElementById('categoryname').value;
+    if(categoryname1.length==0){
+        alert("Không được để trống thể loại")
+    }else{
+    await firestore.collection("category").add({
+        namecategory : categoryname1
+         
     })
+   
+}
+       
 }
 // addStore(); 
 
