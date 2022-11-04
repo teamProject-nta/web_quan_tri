@@ -149,13 +149,6 @@
               <tbody id="tentheloai">
            
       
-
-        
-                 
-               
-              
-            
-
               </tbody>
             </table>
           </div>
@@ -198,7 +191,7 @@
         
           <BR>
           <BR>
-          <button style="margin-left:20px ;margin-right: 10px;" class="btn btn-save"  type="button">Lưu lại</button>
+          <button style="margin-left:20px ;margin-right: 10px;" class="btn btn-save" onclick="updateCategory()" type="button">Lưu lại</button>
           <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
           <BR>
         </div>
@@ -347,10 +340,10 @@ MODAL
                   <td> ${sel.id} </td>
                   <td>${sel.data().namecategory}</td>
               
-                  <td ><button  class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                      onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
+                  <td ><button  class="btn btn-primary btn-sm trash" type="button"  title="Xóa"
+                      onclick="deleteCategory()"><i class="fas fa-trash-alt"></i>
                     </button>
-                    <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" onclick="updateCategory()"  id="show-emp"
+                    <button class="btn btn-primary btn-sm edit" type="button" title="Sửa"   id="show-emp"
                       data-toggle="modal" data-target="#ModalUP"><i class="fas fa-edit"></i></button>
 
                   </td>
@@ -361,13 +354,15 @@ MODAL
     })
 
 
-//     async function updateCategory() {
-//       var theloaimoi = document.getElementById('theloaimoi').value;
-//     await firebase.firestore().collection("category").doc(sel.id).update({ namecategory: theloaimoi });
-// }
+    async function updateCategory() {
+      var theloaimoi = document.getElementById('theloaimoi').value;
+    await firebase.firestore().collection("category").doc(sel.id).update({ namecategory: theloaimoi });
+}
+async function deleteCategory() {
+    await firebase.firestore().collection("category").doc(sel.id).delete();
+}
 
 
-// updateCategory();
   </script>
 
 
