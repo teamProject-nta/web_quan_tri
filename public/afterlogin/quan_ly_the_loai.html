@@ -75,9 +75,9 @@
             class='app-menu__icon bx bx-purchase-tag-alt'></i><span class="app-menu__label">Quản lý sản phẩm</span></a>
       </li>
       <li><a class="app-menu__item active" class="app-menu__item" href="quan_ly_the_loai.html"><i
-        class='app-menu__icon bx bx-purchase-tag-alt'></i><span class="app-menu__label">Quản lý thể loại</span></a>
-  </li>
-   
+            class='app-menu__icon bx bx-purchase-tag-alt'></i><span class="app-menu__label">Quản lý thể loại</span></a>
+      </li>
+
       <li><a class="app-menu__item" href="table-data-oder.html"><i class='app-menu__icon bx bx-task'></i><span
             class="app-menu__label">Quản lý đơn hàng</span></a></li>
 
@@ -135,27 +135,39 @@
               </div>
 
             </div>
-            
+
             <table class="table table-hover table-bordered" id="sampleTable">
               <thead>
                 <tr>
                   <th width="10"><input type="checkbox" id="all"></th>
                   <th>ID</th>
 
-                  <th >Tên thể loại</th>
-                 
+                  <th>Tên thể loại</th>
+
                 </tr>
               </thead>
               <tbody id="tentheloai">
-           
-      
+                <tr>
+                  <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                  <td id="idcategory"> ${sel.id} </td>
+                  <td>${sel.data().namecategory}</td>
+              
+                  <td ><button  class="btn btn-primary btn-sm trash" type="button"  title="Xóa"
+                      onclick="deleteCategory()"><i class="fas fa-trash-alt"></i>
+                    </button>
+                    <button class="btn btn-primary btn-sm edit" type="button" title="Sửa"   id="show-emp"
+                      data-toggle="modal" data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+
+                  </td>
+               </tr>
+
               </tbody>
             </table>
           </div>
         </div>
       </div>
     </div>
-    
+
   </main>
 
   <!--
@@ -175,7 +187,7 @@
             </div>
           </div>
           <div class="row">
-         
+
             <div class="form-group col-md-6" style=" 
             -webkit-box-flex: unset; 
             -ms-flex:none;
@@ -185,115 +197,116 @@
               <label class="control-label">Tên thể loại</label>
               <input id="theloaimoi" class="form-control" type="text" required value="">
             </div>
-     
-           
-          <BR>
-        
-          <BR>
-          <BR>
-          <button style="margin-left:20px ;margin-right: 10px;" class="btn btn-save" onclick="updateCategory()" type="button">Lưu lại</button>
-          <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
-          <BR>
-        </div>
-        <div class="modal-footer">
+
+
+            <BR>
+
+            <BR>
+            <BR>
+            <button style="margin-left:20px ;margin-right: 10px;" class="btn btn-save" onclick="updateCategory()"
+              type="button">Lưu lại</button>
+            <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
+            <BR>
+          </div>
+          <div class="modal-footer">
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!--
+    <!--
 MODAL
 -->
 
-  <!-- Essential javascripts for application to work-->
-  <script src="js/jquery-3.2.1.min.js"></script>
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script src="src/jquery.table2excel.js"></script>
-  <script src="js/main.js"></script>
-  <!-- The javascript plugin to display page loading on top-->
-  <script src="js/plugins/pace.min.js"></script>
-  <!-- Page specific javascripts-->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
-  <!-- Data table plugin-->
-  <script type="text/javascript" src="js/plugins/jquery.dataTables.min.js"></script>
-  <script type="text/javascript" src="js/plugins/dataTables.bootstrap.min.js"></script>
-  <script type="text/javascript">
-    $('#sampleTable').DataTable();
-    //Thời Gian
-    function time() {
-      var today = new Date();
-      var weekday = new Array(7);
-      weekday[0] = "Chủ Nhật";
-      weekday[1] = "Thứ Hai";
-      weekday[2] = "Thứ Ba";
-      weekday[3] = "Thứ Tư";
-      weekday[4] = "Thứ Năm";
-      weekday[5] = "Thứ Sáu";
-      weekday[6] = "Thứ Bảy";
-      var day = weekday[today.getDay()];
-      var dd = today.getDate();
-      var mm = today.getMonth() + 1;
-      var yyyy = today.getFullYear();
-      var h = today.getHours();
-      var m = today.getMinutes();
-      var s = today.getSeconds();
-      m = checkTime(m);
-      s = checkTime(s);
-      nowTime = h + " giờ " + m + " phút " + s + " giây";
-      if (dd < 10) {
-        dd = '0' + dd
-      }
-      if (mm < 10) {
-        mm = '0' + mm
-      }
-      today = day + ', ' + dd + '/' + mm + '/' + yyyy;
-      tmp = '<span class="date"> ' + today + ' - ' + nowTime +
-        '</span>';
-      document.getElementById("clock").innerHTML = tmp;
-      clocktime = setTimeout("time()", "1000", "Javascript");
-
-      function checkTime(i) {
-        if (i < 10) {
-          i = "0" + i;
+    <!-- Essential javascripts for application to work-->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="src/jquery.table2excel.js"></script>
+    <script src="js/main.js"></script>
+    <!-- The javascript plugin to display page loading on top-->
+    <script src="js/plugins/pace.min.js"></script>
+    <!-- Page specific javascripts-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+    <!-- Data table plugin-->
+    <script type="text/javascript" src="js/plugins/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="js/plugins/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript">
+      $('#sampleTable').DataTable();
+      //Thời Gian
+      function time() {
+        var today = new Date();
+        var weekday = new Array(7);
+        weekday[0] = "Chủ Nhật";
+        weekday[1] = "Thứ Hai";
+        weekday[2] = "Thứ Ba";
+        weekday[3] = "Thứ Tư";
+        weekday[4] = "Thứ Năm";
+        weekday[5] = "Thứ Sáu";
+        weekday[6] = "Thứ Bảy";
+        var day = weekday[today.getDay()];
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1;
+        var yyyy = today.getFullYear();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        var s = today.getSeconds();
+        m = checkTime(m);
+        s = checkTime(s);
+        nowTime = h + " giờ " + m + " phút " + s + " giây";
+        if (dd < 10) {
+          dd = '0' + dd
         }
-        return i;
+        if (mm < 10) {
+          mm = '0' + mm
+        }
+        today = day + ', ' + dd + '/' + mm + '/' + yyyy;
+        tmp = '<span class="date"> ' + today + ' - ' + nowTime +
+          '</span>';
+        document.getElementById("clock").innerHTML = tmp;
+        clocktime = setTimeout("time()", "1000", "Javascript");
+
+        function checkTime(i) {
+          if (i < 10) {
+            i = "0" + i;
+          }
+          return i;
+        }
       }
-    }
-  </script>
-  <script>
-    function deleteRow(r) {
-      var i = r.parentNode.parentNode.rowIndex;
-      document.getElementById("myTable").deleteRow(i);
-    }
-    jQuery(function () {
-      jQuery(".trash").click(function () {
-        swal({
-          title: "Cảnh báo",
-          text: "Bạn có chắc chắn là muốn xóa thể loại này?",
-          buttons: ["Hủy bỏ", "Đồng ý"],
-        })
-          .then((willDelete) => {
-            if (willDelete) {
-              swal("Đã xóa thành công.!", {
+    </script>
+    <script>
+      function deleteRow(r) {
+        var i = r.parentNode.parentNode.rowIndex;
+        document.getElementById("myTable").deleteRow(i);
+      }
+      jQuery(function () {
+        jQuery(".trash").click(function () {
+          swal({
+            title: "Cảnh báo",
+            text: "Bạn có chắc chắn là muốn xóa thể loại này?",
+            buttons: ["Hủy bỏ", "Đồng ý"],
+          })
+            .then((willDelete) => {
+              if (willDelete) {
+                swal("Đã xóa thành công.!", {
 
-              });
-            }
-          });
+                });
+              }
+            });
+        });
       });
-    });
-    oTable = $('#sampleTable').dataTable();
-    $('#all').click(function (e) {
-      $('#sampleTable tbody :checkbox').prop('checked', $(this).is(':checked'));
-      e.stopImmediatePropagation();
-    });
-  </script>
+      oTable = $('#sampleTable').dataTable();
+      $('#all').click(function (e) {
+        $('#sampleTable tbody :checkbox').prop('checked', $(this).is(':checked'));
+        e.stopImmediatePropagation();
+      });
+    </script>
 
-  <script src="js/firebase.js"></script>
+    <script src="js/firebase.js"></script>
 
 </body>
-</script> 
+</script>
 <!-- //firebase -->
 
 <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
@@ -302,40 +315,40 @@ MODAL
 <script src="js/firebase.js"></script>
 
 <script>
- var storea = firestore.collection("category");
+  var storea = firestore.collection("category");
 
 
- async function addCategory() {
+  async function addCategory() {
 
-   var categoryname1 = document.getElementById('categoryname').value;
-   if (categoryname1.length == 0) {
-     alert("Không được để trống thể loại")
-   } else {
-     await firestore.collection("category").add({
-       namecategory: categoryname1
+    var categoryname1 = document.getElementById('categoryname').value;
+    if (categoryname1.length == 0) {
+      alert("Không được để trống thể loại")
+    } else {
+      await firestore.collection("category").add({
+        namecategory: categoryname1
 
-     })
-   }
+      })
+    }
 
- }
-</script> 
-   <!-- //firebase -->
+  }
+</script>
+<!-- //firebase -->
 
-   <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
-   <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.js"></script>
-   <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
-  <script src="js/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
+<script src="js/firebase.js"></script>
 
-  <script>
+<script>
 
 
 
-    var theloai = firestore.collection("category");
-    var selection = document.getElementsById('tentheloai');
-    theloai.get().then((snapshot) => {
-      snapshot.forEach(sel => {
-        console.log(sel.data());
-        var option = `<tr>
+  var theloai = firestore.collection("category");
+  var selection = document.getElementsById('tentheloai');
+  theloai.get().then((snapshot) => {
+    snapshot.forEach(sel => {
+      console.log(sel.data());
+      var option = `<tr>
                   <td width="10"><input type="checkbox" name="check1" value="1"></td>
                   <td> ${sel.id} </td>
                   <td>${sel.data().namecategory}</td>
@@ -349,21 +362,24 @@ MODAL
                   </td>
                </tr>`;
 
-        selection.innerHTML += option;
-      });
-    })
+      selection.innerHTML += option;
+    });
+  })
 
 
-    async function updateCategory() {
-      var theloaimoi = document.getElementById('theloaimoi').value;
-    await firebase.firestore().collection("category").doc(sel.id).update({ namecategory: theloaimoi });
-}
-async function deleteCategory() {
-    await firebase.firestore().collection("category").doc(sel.id).delete();
-}
+  async function updateCategory() {
+    var theloaimoi = document.getElementById('theloaimoi').value;
+    var xoatheloai = document.getElementById('idcategory').value;
+    await firebase.firestore().collection("category").doc(xoatheloai).update({ namecategory: theloaimoi });
+  }
+  async function deleteCategory() {
+    var xoatheloai = document.getElementById('idcategory').value;
+    await firebase.firestore().collection("category").doc(xoatheloai).delete();
+    console.log(xoatheloai);
+  }
 
 
-  </script>
+</script>
 
 
 
