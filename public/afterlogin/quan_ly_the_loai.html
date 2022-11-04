@@ -141,6 +141,7 @@
                 <tr>
                   <th width="10"><input type="checkbox" id="all"></th>
                   <th>ID</th>
+
                   <th >Tên thể loại</th>
                  
                 </tr>
@@ -148,6 +149,13 @@
               <tbody id="tentheloai">
            
       
+
+        
+                 
+               
+              
+            
+
               </tbody>
             </table>
           </div>
@@ -353,13 +361,13 @@ MODAL
     })
 
 
-    async function updateCategory() {
-      var theloaimoi = document.getElementById('theloaimoi').value;
-    await firebase.firestore().collection("category").doc(sel.id).update({ namecategory: theloaimoi });
-}
+//     async function updateCategory() {
+//       var theloaimoi = document.getElementById('theloaimoi').value;
+//     await firebase.firestore().collection("category").doc(sel.id).update({ namecategory: theloaimoi });
+// }
 
 
-updateStore();
+// updateCategory();
   </script>
 
 
