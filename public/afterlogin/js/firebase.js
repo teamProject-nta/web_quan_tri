@@ -3,7 +3,7 @@ const firebaseConfig = {
   authDomain: "appsale-ba3f9.firebaseapp.com",
   databaseURL: "https://appsale-ba3f9-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "appsale-ba3f9",
-  storageBucket: "appsale-ba3f9.appspot.com",
+  storageBucket: "gs://appsale-ba3f9.appspot.com",
   messagingSenderId: "757083996678",
   appId: "1:757083996678:web:258b05b355945f9d207987",
   measurementId: "G-85H2Z7X2MT"
@@ -12,3 +12,4 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = firebase.initializeApp(firebaseConfig);
 const firestore = firebase.firestore();
+const storage = firebase.storage();
