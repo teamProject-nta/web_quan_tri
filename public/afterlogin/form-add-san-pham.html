@@ -476,6 +476,23 @@ MODAL
         selection.innerHTML += option;
       });
     })
+
+    async function addProduct() {
+
+      var categoryname1 = document.getElementById('categoryname').value;
+      if (categoryname1.length == 0) {
+        alert("Không được để trống thể loại")
+      } else {
+        await firestore.collection("category").add({
+          namecategory: categoryname1,
+          
+
+        };
+        alert())
+
+      }
+
+    }
   </script>
 </body>
 
