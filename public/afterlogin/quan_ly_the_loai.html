@@ -25,11 +25,7 @@
 
 
   <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-database.js"></script>
 
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
   <!-- TODO: Add SDKs for Firebase products that you want to use
        https://firebase.google.com/docs/web/setup#available-libraries -->
@@ -136,30 +132,19 @@
 
             </div>
 
-            <table class="table table-hover table-bordered" id="sampleTable">
+            <table class="table table-hover table-bordered">
               <thead>
                 <tr>
                   <th width="10"><input type="checkbox" id="all"></th>
                   <th>ID</th>
 
                   <th>Tên thể loại</th>
+                  <th style="text-align: center;">Xóa / sửa</th>
 
                 </tr>
               </thead>
               <tbody id="tentheloai">
-                <tr>
-                  <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                  <td id="idcategory"> ${sel.id} </td>
-                  <td>${sel.data().namecategory}</td>
-              
-                  <td ><button  class="btn btn-primary btn-sm trash" type="button"  title="Xóa"
-                      onclick="deleteCategory()"><i class="fas fa-trash-alt"></i>
-                    </button>
-                    <button class="btn btn-primary btn-sm edit" type="button" title="Sửa"   id="show-emp"
-                      data-toggle="modal" data-target="#ModalUP"><i class="fas fa-edit"></i></button>
 
-                  </td>
-               </tr>
 
               </tbody>
             </table>
@@ -275,7 +260,7 @@ MODAL
         }
       }
     </script>
-    <script>
+    <!-- <script>
       function deleteRow(r) {
         var i = r.parentNode.parentNode.rowIndex;
         document.getElementById("myTable").deleteRow(i);
@@ -301,9 +286,8 @@ MODAL
         $('#sampleTable tbody :checkbox').prop('checked', $(this).is(':checked'));
         e.stopImmediatePropagation();
       });
-    </script>
+    </script> -->
 
-    <script src="js/firebase.js"></script>
 
 </body>
 </script>
@@ -340,15 +324,14 @@ MODAL
 <script src="js/firebase.js"></script>
 
 <script>
-
-
-
-  var theloai = firestore.collection("category");
-  var selection = document.getElementsById('tentheloai');
-  theloai.get().then((snapshot) => {
-    snapshot.forEach(sel => {
-      console.log(sel.data());
-      var option = `<tr>
+  getDataCategory();
+  function getDataCategory() {
+    var theloai = firestore.collection("category");
+    var selection = document.getElementById('tentheloai');
+    theloai.get().then((snapshot) => {
+      snapshot.forEach(sel => {
+        console.log(sel.data());
+        var option = `<tr>
                   <td width="10"><input type="checkbox" name="check1" value="1"></td>
                   <td id="idcategory"> ${sel.id} </td>
                   <td>${sel.data().namecategory}</td>
@@ -362,9 +345,11 @@ MODAL
                   </td>
                </tr>`;
 
-      selection.innerHTML += option;
-    });
-  })
+        selection.innerHTML += option;
+      });
+    })
+  }
+
 
 
   async function updateCategory() {
