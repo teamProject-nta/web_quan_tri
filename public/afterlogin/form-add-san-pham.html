@@ -33,49 +33,10 @@
 
   <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-analytics.js"></script>
 
-  <script>
-
-    function readURL(input, thumbimage) {
-      if (input.files && input.files[0]) { //Sử dụng  cho Firefox - chrome
-        var reader = new FileReader();
-        reader.onload = function (e) {
-          $("#thumbimage").attr('src', e.target.result);
-        }
-        reader.readAsDataURL(input.files[0]);
-      }
-      else { // Sử dụng cho IE
-        $("#thumbimage").attr('src', input.value);
-
-      }
-      $("#thumbimage").show();
-      $('.filename').text($("#uploadfile").val());
-      $('.Choicefile').css('background', '#14142B');
-      $('.Choicefile').css('cursor', 'default');
-      $(".removeimg").show();
-      $(".Choicefile").unbind('click');
-
-    }
-    $(document).ready(function () {
-      $(".Choicefile").bind('click', function () {
-        $("#uploadfile").click();
-
-      });
-      $(".removeimg").click(function () {
-        $("#thumbimage").attr('src', '').hide();
-        $("#myfileupload").html('<input type="file" id="uploadfile"  onchange="readURL(this);" />');
-        $(".removeimg").hide();
-        $(".Choicefile").bind('click', function () {
-          $("#uploadfile").click();
-        });
-        $('.Choicefile').css('background', '#14142B');
-        $('.Choicefile').css('cursor', 'pointer');
-        $(".filename").text("");
-      });
-    })
-  </script>
 </head>
 
 <body class="app sidebar-mini rtl">
+
   <style>
     .Choicefile {
       display: block;
@@ -98,52 +59,10 @@
       color: white;
     }
 
-    #uploadfile,
-    .removeimg {
-      display: none;
-    }
-
     #thumbbox {
       position: relative;
       width: 100%;
       margin-bottom: 20px;
-    }
-
-    .removeimg {
-      height: 25px;
-      position: absolute;
-      background-repeat: no-repeat;
-      top: 5px;
-      left: 5px;
-      background-size: 25px;
-      width: 25px;
-      /* border: 3px solid red; */
-      border-radius: 50%;
-
-    }
-
-    .removeimg::before {
-      -webkit-box-sizing: border-box;
-      box-sizing: border-box;
-      content: '';
-      border: 1px solid red;
-      background: red;
-      text-align: center;
-      display: block;
-      margin-top: 11px;
-      transform: rotate(45deg);
-    }
-
-    .removeimg::after {
-      /* color: #FFF; */
-      /* background-color: #DC403B; */
-      content: '';
-      background: red;
-      border: 1px solid red;
-      text-align: center;
-      display: block;
-      transform: rotate(-45deg);
-      margin-top: -2px;
     }
   </style>
   <!-- Navbar-->
@@ -201,6 +120,7 @@
     </ul>
   </aside>
   <main class="app-content">
+    <button id="uploadFirebase" onclick="upLoadImage()">Up load thử</button>
     <div class="app-title">
       <ul class="app-breadcrumb breadcrumb">
         <li class="breadcrumb-item">Danh sách sản phẩm</li>
@@ -282,16 +202,33 @@
               </div>
               <div class="form-group col-md-12">
                 <label class="control-label">Ảnh sản phẩm</label>
-                <div id="myfileupload">
-                  <input type="file" id="uploadfile" name="ImageUpload" onchange="readURL(this);" />
+
+                <div class="image" style="position: relative; height: 50px;">
+
+                  <div class="boxchoice" style="position: absolute; top: 0;">
+                    <a href="javascript:" class="Choicefile"><i class="fas fa-cloud-upload-alt"></i> Chọn ảnh</a>
+                    <p style="clear:both"></p>
+                  </div>
+                  <div id="myfileupload" style="position: absolute; top: 0; opacity: 0;">
+                    <input type="file" id="uploadfile" multiple name="ImageUpload" onchange="choiceImage(this)" />
+                  </div>
+
                 </div>
+
                 <div id="thumbbox">
-                  <img height="450" width="400" alt="Thumb image" id="thumbimage" style="display: none" />
-                  <a class="removeimg" href="javascript:"></a>
-                </div>
-                <div id="boxchoice">
-                  <a href="javascript:" class="Choicefile"><i class="fas fa-cloud-upload-alt"></i> Chọn ảnh</a>
-                  <p style="clear:both"></p>
+                  <img height="250" width="200" alt="Thumb image" class="thumbimage" style="display: none" />
+                  <img height="250" width="200" alt="Thumb image" class="thumbimage" style="display: none" />
+                  <img height="250" width="200" alt="Thumb image" class="thumbimage" style="display: none" />
+                  <img height="250" width="200" alt="Thumb image" class="thumbimage" style="display: none" />
+                  <img height="250" width="200" alt="Thumb image" class="thumbimage" style="display: none" />
+                  <img height="250" width="200" alt="Thumb image" class="thumbimage" style="display: none" />
+                  <img height="250" width="200" alt="Thumb image" class="thumbimage" style="display: none" />
+                  <img height="250" width="200" alt="Thumb image" class="thumbimage" style="display: none" />
+                  <img height="250" width="200" alt="Thumb image" class="thumbimage" style="display: none" />
+                  <img height="250" width="200" alt="Thumb image" class="thumbimage" style="display: none" />
+                  <img height="250" width="200" alt="Thumb image" class="thumbimage" style="display: none" />
+                  <img height="250" width="200" alt="Thumb image" class="thumbimage" style="display: none" />
+
                 </div>
 
               </div>
@@ -305,7 +242,7 @@
           <button class="btn btn-save" type="button">Lưu lại</button>
           <a class="btn btn-cancel" href="table-data-product.html">Hủy bỏ</a>
         </div>
-        <button id="upload" onclick="upLoad()">Up load thử</button>
+
   </main>
 
 
@@ -345,7 +282,34 @@
 
   <!-- <script src="js/firebase.js"></script> -->
 
-  <script >
+  <script>
+
+    function choiceImage(fileInput) {
+      var fileImage = document.getElementById('uploadfile');
+      var thumbimage = document.getElementsByClassName('thumbimage');
+
+
+      if (fileInput.files && fileInput.files[0]) {
+
+
+        for (let index = 0; index < fileImage.files.length; index++) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            thumbimage[index].setAttribute('src', e.target.result);
+            thumbimage[index].style.display = '';
+            // console.log(fileImage.files[index].lastModified);
+          }
+          reader.readAsDataURL(fileImage.files[index])
+
+        }
+
+      }
+
+
+    }
+  </script>
+
+  <script>
     // import firebase from "firebase/app";
     // import "firebase/storage";
 
@@ -377,32 +341,80 @@
     })
 
 
-    function upLoad() {
-      
-      var storageRef = storage.ref();
-      var path = document.querySelector('#uploadfile').files[0];
 
-      console.log(path);
+    function upLoadImage() {
 
-      Date.now();
-      var unixtime = new Date().getTime();
+      const storageRef = storage.ref();
+
+      var path_0 = document.querySelector('#uploadfile').files[0];
+      var path_1 = document.querySelector('#uploadfile').files[1];
+      var path_2 = document.querySelector('#uploadfile').files[2];
+      var path_3 = document.querySelector('#uploadfile').files[3];
 
       const metadata = {
         contentType: 'image/jpeg',
-
       }
 
-      const task = storageRef.child(unixtime+"").put(path, metadata);
+      if (path_0 != null) {
+        Date.now();
+        var unixtime = new Date().getTime();
+        var name_0 = path_0.lastModified + "" + unixtime + path_0.name;
 
-      task
-      .then(snapshot => snapshot.ref.getDownloadURL())
-      .then(url => {
-        console.log(url);
-        alert('Upload Thành Công');
-      })
+        const task_0 = storageRef.child(name_0 + "").put(path_0, metadata);
+        task_0
+          .then(snapshot => snapshot.ref.getDownloadURL())
+          .then(url => {
+            console.log(url);
+            alert('Upload Thành Công');
+          })
+
+      }
+      if (path_1 != null) {
+        Date.now();
+        var unixtime = new Date().getTime();
+        var name_1 = path_1.lastModified + "" + unixtime + path_1.name;
+
+        const task_1 = storageRef.child(name_1 + "").put(path_1, metadata);
+        task_1
+          .then(snapshot => snapshot.ref.getDownloadURL())
+          .then(url => {
+            console.log(url);
+            alert('Upload Thành Công');
+          })
+      }
+      if (path_2 != null) {
+        Date.now();
+        var unixtime = new Date().getTime();
+        var name_2 = path_2.lastModified + "" + unixtime + path_2.name;
+
+        const task_2 = storageRef.child(name_2 + "").put(path_2, metadata);
+        task_2
+          .then(snapshot => snapshot.ref.getDownloadURL())
+          .then(url => {
+            console.log(url);
+            alert('Upload Thành Công');
+          })
+
+      }
+      if (path_3 != null) {
+        Date.now();
+        var unixtime = new Date().getTime();
+        var name_3 = path_3.lastModified + "" + unixtime + path_3.name;
+
+        const task_3 = storageRef.child(name_3 + "").put(path_3, metadata);
+        task_3
+          .then(snapshot => snapshot.ref.getDownloadURL())
+          .then(url => {
+            console.log(url);
+            alert('Upload Thành Công');
+          })
+      }
 
     }
+
+    document.getElementById('uploadFirebase').addEventListener('click', upLoadImage());
   </script>
+
 </body>
 
 </html>
