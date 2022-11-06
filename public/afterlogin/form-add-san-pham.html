@@ -120,7 +120,7 @@
     </ul>
   </aside>
   <main class="app-content">
-    <button id="uploadFirebase" onclick="upLoadImage()">Up load thử</button>
+    <!-- <button id="uploadFirebase" onclick="AddProduct()">Up load thử</button> -->
     <div class="app-title">
       <ul class="app-breadcrumb breadcrumb">
         <li class="breadcrumb-item">Danh sách sản phẩm</li>
@@ -153,25 +153,25 @@
               </div>
               <div class="form-group col-md-3">
                 <label class="control-label">Tên sản phẩm</label>
-                <input class="form-control" type="text">
+                <input class="form-control" id="tensp" type="text">
               </div>
 
 
               <div class="form-group  col-md-3">
                 <label class="control-label">Số lượng</label>
-                <input class="form-control" type="number">
+                <input class="form-control" id="soluong" type="number">
               </div>
               <div class="form-group col-md-3 ">
                 <label for="exampleSelect1" class="control-label">Tình trạng</label>
                 <select class="form-control" id="exampleSelect1">
                   <option>-- Chọn tình trạng --</option>
-                  <option>Còn hàng</option>
-                  <option>Hết hàng</option>
+                  <option value="Còn hàng">Còn hàng</option>
+                  <option value="Hết hàng">Hết hàng</option>
                 </select>
               </div>
               <div class="form-group col-md-3">
                 <label for="exampleSelect1" class="control-label">Danh mục</label>
-                <select class="form-control theloaiSelect" id="exampleSelect1">
+                <select class="form-control theloaiSelect" id="idtheloaiselect">
                   <option>-- Chọn danh mục --</option>
 
                 </select>
@@ -188,15 +188,15 @@
               </div>
               <div class="form-group col-md-3">
                 <label class="control-label">Giá bán</label>
-                <input class="form-control" type="text">
+                <input class="form-control" id="giaban" type="text">
               </div>
               <div class="form-group col-md-3">
                 <label class="control-label">Màu sắc</label>
                 <div class="form-control">
-                  <input class="input-color" type="color">
-                  <input class="input-color" type="color">
-                  <input class="input-color" type="color">
-                  <input class="input-color" type="color">
+                  <input id="mau1" class="input-color" type="color">
+                  <input id="mau2" class="input-color" type="color">
+                  <input id="mau3" class="input-color" type="color">
+                  <input id="mau4" class="input-color" type="color">
                 </div>
 
               </div>
@@ -234,14 +234,15 @@
               </div>
               <div class="form-group col-md-12">
                 <label class="control-label">Mô tả sản phẩm</label>
-                <textarea class="form-control" name="mota" id="mota"></textarea>
+                <textarea class="form-control" name="mota" id="mota" style="height: 200px;"></textarea>
                 <!-- <script>CKEDITOR.replace('mota');</script> -->
               </div>
 
           </div>
-          <button class="btn btn-save" type="button">Lưu lại</button>
+          <button class="btn btn-save" type="button" onclick="AddProduct()">Lưu lại</button>
           <a class="btn btn-cancel" href="table-data-product.html">Hủy bỏ</a>
         </div>
+
 
   </main>
 
@@ -334,17 +335,76 @@
     theloai.get().then((snapshot) => {
       snapshot.forEach(sel => {
         console.log(sel.data());
-        var option = `<option value="${sel.data().namecategory}">${sel.data().namecategory}</option>`;
+        var option = `<option value="${sel.id}">${sel.data().namecategory}</option>`;
 
         selection.innerHTML += option;
       });
     })
 
 
+    var arrImage = new Array();
+    var arrColor = new Array();
+    var tensanpham = document.getElementById('tensp').value;
+    var soluong
+    var theloai_id
+    var mota
+    var giaban
+    var color1
+    var color2
+    var color3
+    var color4
 
-    function upLoadImage() {
+    let callbacks = function callback_0() {
+      callback_1(upLoadImage_1);
+      console.log('Ảnh 1');
+    }
+
+    function callback_1(func2) {
+      callback_2(upLoadImage_2)
+      console.log("Ảnh 2");
+      func2();
+    }
+    function callback_2(func2) {
+      callback_3(upLoadImage_3);
+      console.log('Ảnh 3');
+      func2();
+    }
+    function callback_3(func3) {
+      callback_4(upLoadImage_4);
+      console.log('Ảnh 4');
+      func3();
+    }
+    function callback_4(func3) {
+      func3();
+    }
+    function upAllImage(calls) {
+      arrImage = new Array();
+      calls();
+      setTimeout(function () {
+        firestore.collection("product").add({
+          available: 0,
+          color: arrColor,
+          describe: mota,
+          id_category: theloai_id,
+          id_store: "wphRkDgUyR7IfdAMb7Lp",
+          image: arrImage,
+          nameproduct: tensanpham,
+          price: giaban,
+          sale: 0,
+          sold: 0,
+          total: soluong
+        })
+        alert("Thêm thành công");
+      }, 7000)
+
+    }
+
+    var upLoadImage_1 = function upLoadImage_1a() {
+
+      var storea = firestore.collection("category");
 
       const storageRef = storage.ref();
+      var path_all = document.querySelector('#uploadfile').files;
 
       var path_0 = document.querySelector('#uploadfile').files[0];
       var path_1 = document.querySelector('#uploadfile').files[1];
@@ -365,10 +425,29 @@
           .then(snapshot => snapshot.ref.getDownloadURL())
           .then(url => {
             console.log(url);
-            alert('Upload Thành Công');
+            arrImage.push(url);
+            alert('Ảnh 1 thành công');
           })
 
       }
+    }
+    var upLoadImage_2 = function upLoadImage_2a() {
+
+      var storea = firestore.collection("category");
+
+
+      const storageRef = storage.ref();
+      var path_all = document.querySelector('#uploadfile').files;
+
+      var path_0 = document.querySelector('#uploadfile').files[0];
+      var path_1 = document.querySelector('#uploadfile').files[1];
+      var path_2 = document.querySelector('#uploadfile').files[2];
+      var path_3 = document.querySelector('#uploadfile').files[3];
+
+      const metadata = {
+        contentType: 'image/jpeg',
+      }
+
       if (path_1 != null) {
         Date.now();
         var unixtime = new Date().getTime();
@@ -379,9 +458,30 @@
           .then(snapshot => snapshot.ref.getDownloadURL())
           .then(url => {
             console.log(url);
-            alert('Upload Thành Công');
+            arrImage.push(url);
+            alert('Ảnh 2 thành công');
           })
       }
+
+    }
+    var upLoadImage_3 = function upLoadImage_3a() {
+
+      var storea = firestore.collection("category");
+
+
+      const storageRef = storage.ref();
+      var path_all = document.querySelector('#uploadfile').files;
+
+
+      var path_0 = document.querySelector('#uploadfile').files[0];
+      var path_1 = document.querySelector('#uploadfile').files[1];
+      var path_2 = document.querySelector('#uploadfile').files[2];
+      var path_3 = document.querySelector('#uploadfile').files[3];
+
+      const metadata = {
+        contentType: 'image/jpeg',
+      }
+
       if (path_2 != null) {
         Date.now();
         var unixtime = new Date().getTime();
@@ -392,10 +492,32 @@
           .then(snapshot => snapshot.ref.getDownloadURL())
           .then(url => {
             console.log(url);
-            alert('Upload Thành Công');
+            arrImage.push(url);
+            alert('Ảnh 3 thành công');
           })
 
       }
+
+    }
+
+    var upLoadImage_4 = function upLoadImage_4a() {
+
+      var storea = firestore.collection("category");
+
+
+      const storageRef = storage.ref();
+      var path_all = document.querySelector('#uploadfile').files;
+
+
+      var path_0 = document.querySelector('#uploadfile').files[0];
+      var path_1 = document.querySelector('#uploadfile').files[1];
+      var path_2 = document.querySelector('#uploadfile').files[2];
+      var path_3 = document.querySelector('#uploadfile').files[3];
+
+      const metadata = {
+        contentType: 'image/jpeg',
+      }
+
       if (path_3 != null) {
         Date.now();
         var unixtime = new Date().getTime();
@@ -406,13 +528,55 @@
           .then(snapshot => snapshot.ref.getDownloadURL())
           .then(url => {
             console.log(url);
-            alert('Upload Thành Công');
+            arrImage.push(url);
+            alert('Ảnh 4 thành công');
+
+
           })
       }
 
+
     }
 
-    document.getElementById('uploadFirebase').addEventListener('click', upLoadImage());
+
+
+
+    // document.getElementById('uploadFirebase').addEventListener('click', upLoadImage());
+  </script>
+
+  <script>
+
+    function AddProduct() {
+      arrColor = new Array();
+      tensanpham = document.getElementById('tensp').value;
+      soluong = document.getElementById('soluong').value;
+      theloai_id = document.getElementById('idtheloaiselect').value;
+      mota = document.getElementById('mota').value;
+      giaban = document.getElementById('giaban').value
+      color1 = document.getElementById('mau1').value;
+      color2 = document.getElementById('mau2').value;
+      color3 = document.getElementById('mau3').value;
+      color4 = document.getElementById('mau4').value;
+
+      if (tensanpham == '' || soluong == '' || theloai == '' || giaban == '' || mota == '') {
+        alert("Cần nhập đủ");
+      } else {
+        if (document.querySelector('#uploadfile').files[0] == null) {
+          alert("Cần thêm ảnh");
+        } else {
+          arrColor.push(color1);
+          arrColor.push(color2);
+          arrColor.push(color3);
+          arrColor.push(color4);
+
+          alert(`Mã màu 1 ${arrColor[0]} Mã màu 2 ${arrColor[1]} Mã màu 3 ${arrColor[2]} Mã màu 4 ${arrColor[3]}`)
+          upAllImage(callbacks);
+
+        }
+      }
+    }
+
+
   </script>
 
 </body>

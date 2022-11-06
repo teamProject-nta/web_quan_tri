@@ -18,7 +18,7 @@
   <!-- Font-icon css-->
   <link rel="stylesheet" type="text/css"
     href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
@@ -57,7 +57,7 @@
   <!-- Sidebar menu-->
   <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
   <aside class="app-sidebar">
-    <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="/public/images/avata.jpg" width="50px"
+    <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="../images/avata.jpg" width="50px"
         alt="User Image">
       <div>
         <p class="app-sidebar__user-name"><b>Admin</b></p>
@@ -74,15 +74,15 @@
 
       <li><a class="app-menu__item active" class="app-menu__item" href="table-data-product.html"><i
             class='app-menu__icon bx bx-purchase-tag-alt'></i><span class="app-menu__label">Quản lý sản phẩm</span></a>
-      </li> 
+      </li>
       <li><a class="app-menu__item " class="app-menu__item" href="quan_ly_the_loai.html"><i
-        class='app-menu__icon bx bx-purchase-tag-alt'></i><span class="app-menu__label">Quản lý thể loại</span></a>
+            class='app-menu__icon bx bx-purchase-tag-alt'></i><span class="app-menu__label">Quản lý thể loại</span></a>
       </li>
       <li><a class="app-menu__item" href="table-data-oder.html"><i class='app-menu__icon bx bx-task'></i><span
             class="app-menu__label">Quản lý đơn hàng</span></a></li>
 
       </span></a></li>
-     
+
 
       <li><a class="app-menu__item" href="quan-ly-bao-cao.html"><i
             class='app-menu__icon bx bx-pie-chart-alt-2'></i><span class="app-menu__label">Báo cáo doanh thu</span></a>
@@ -136,7 +136,7 @@
               </div>
             </div>
             <!-- <table class="table table-hover table-bordered" id="sampleTable"> -->
-              <table class="table table-hover table-bordered" id="sampleTable">
+            <table class="table table-hover table-bordered">
               <thead>
                 <tr>
                   <th width="10"><input type="checkbox" id="all"></th>
@@ -150,8 +150,8 @@
                   <th>Chức năng</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
+              <tbody id="tableproduct">
+                <!-- <tr>
                   <td width="10"><input type="checkbox" name="check1" value="1"></td>
                   <td>71309005</td>
                   <td>Bàn ăn gỗ Theresa</td>
@@ -167,25 +167,9 @@
                       data-toggle="modal" data-target="#ModalUP"><i class="fas fa-edit"></i></button>
 
                   </td>
-                </tr>
-                <tr>
-                  <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                  <td>61304005</td>
-                  <td>Bàn ăn Reno mặt đá</td>
-                  <td><img src="/public/img-sanpham/reno.jpg" alt="" width="100px;"></td>
-                  <td>70</td>
-                  <td><span class="badge bg-success">Còn hàng</span></td>
-                  <td>24.200.000 đ</td>
-                  <td>Bàn ăn</td>
-                  <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                      onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
-                    </button>
-                    <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp"
-                      data-toggle="modal" data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+                </tr> -->
 
-                  </td>
-                </tr>
-             
+
               </tbody>
             </table>
           </div>
@@ -354,8 +338,86 @@ MODAL
       e.stopImmediatePropagation();
     });
   </script>
-
+  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
   <script src="js/firebase.js"></script>
+
+  <script type="module">
+    const firebaseConfig = {
+      apiKey: "AIzaSyBhECFBJadJ4yFQF4KxbVfA7a6mrWsM_jo",
+      authDomain: "appsale-ba3f9.firebaseapp.com",
+      databaseURL: "https://appsale-ba3f9-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "appsale-ba3f9",
+      storageBucket: "appsale-ba3f9.appspot.com",
+      messagingSenderId: "757083996678",
+      appId: "1:757083996678:web:258b05b355945f9d207987",
+      measurementId: "G-85H2Z7X2MT"
+    };
+
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const firestore = firebase.firestore();
+
+  </script>
+
+  <script>
+
+    var tenloai;
+
+    getDataProduct();
+    function getDataProduct() {
+      // document.getElementById('tableproduct').innerHTML = '';
+      var i = 0;
+      var product = firestore.collection("product");
+      var selection = document.getElementById('tableproduct');
+      product.get().then((snapshot) => {
+        snapshot.forEach(sel => {
+
+          var option = `<tr>
+                  <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                  <td>${sel.id}</td>
+                  <td>${sel.data().nameproduct}</td>
+                  <td><img src="${sel.data().image[0]}" alt="" width="100px;"></td>
+                  <td>${sel.data().total}</td>
+                  <td><span class="badge bg-success">${((sel.data().total - sel.data().sold) > 0) ? 'Còn hàng' : 'Hết hàng'}</span></td>
+                  <td>${sel.data().price.replace(/\B(?=(\d{3})+(?!\d))/g, '.')}đ</td>
+                  <td class="tentheloaihang" value="${sel.data().id_category}">${sel.data().id_category}</td>
+                  <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                      onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
+                    </button>
+                    <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp"
+                      data-toggle="modal" data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+
+                  </td>
+                </tr>`;
+
+          selection.innerHTML += option;
+          i++;
+        });
+
+      })
+      // getDataCategory();
+    }
+
+    function getDataCategory() {
+      var theloai = firestore.collection("category");
+      var tenloai = document.getElementsByClassName('tentheloaihang');
+      console.log(tenloai);
+      theloai.get().then((snapshot) => {
+        snapshot.forEach(sel => {
+          for (let i = 0; i < tenloai.length; i++) {
+            console.log(tenloai[i].value);
+            if (tenloai[i].value == sel.id) {
+              console.log(tenloai[i].value);
+              tenloai[i].innerText = sel.data().namecategory;
+            }
+          }
+        });
+      })
+    }
+
+  </script>
 
 </body>
 
